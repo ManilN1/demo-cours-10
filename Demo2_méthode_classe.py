@@ -3,7 +3,7 @@ class Employe:
     liste_employe:list['Employe'] = []
     next_ID:int = 1000 
     
-    def __init__(self,p_prenom:str, p_nom:str, p_salaire:int) -> None:
+    def __init__(self,p_prenom:str, p_nom:str, p_salaire:int) -> 'Employe':
         self.prenom:str = p_prenom
         self.nom:str = p_nom
         self.salaire:int = p_salaire
@@ -13,11 +13,14 @@ class Employe:
         Employe.liste_employe.append(self)
     
     @classmethod # Méthode utilisé par la classe et non par l'instance
-    def from_string(cls, donnees_str:str) : # Constructeur alternatif
+    def from_string(cls, donnees_str:str,separateur=';') -> 'Employe': # Constructeur alternatif
         "Crée un employé à partir d'un str. Retourne le nouvel employé"
-        nom, prenom, salaire = donnees_str.split(";")
+        nom, prenom, salaire = donnees_str.split(separateur)
         nouvel_employe = cls(nom,prenom,int(salaire))
         return nouvel_employe
+    
+    def __repr__(self):
+        return f"{self._ID},{self.nom}"
 
 
 
